@@ -1,0 +1,295 @@
+
+\chapter{体系结构}
+
+\section{概念}
+
+\subsection{计算机网络}
+计算机网络是一个将众多离散的分治的计算机系统，通过通信设备和线路连接起来，由软件实现\textbf{资源共享和信息传递}的系统。
+
+由若干结点和连接结点的链路组成。
+
+
+\subsection{互连网}
+多个计算机通过路由器连接而成。
+
+可以使用任意通信协议。
+
+
+\subsection{互联网}
+由各大ISP（互联网服务提供商）和国际机构组建。
+
+
+\section{组成}
+
+\subsection{从组成部分看}
+
+\subsubsection{硬件}
+\begin{itemize}
+    \item 主机（端系统）
+    \item 通信设备
+    \item 通信链路
+\end{itemize}
+
+
+\subsubsection{软件}
+
+
+\subsubsection{协议}
+由硬件软件共同实现。
+
+
+\subsection{从工作方式看}
+
+\subsubsection{边缘部分}
+直接为用户提供服务（通信、资源共享）
+
+主要由连接到网上的主机和软件组成。
+
+
+\subsubsection{核心部分部分}
+为边缘部分提供服务
+
+由大量网络和连接网络的路由器组成。
+
+
+\subsection{从逻辑功能看}
+
+\subsubsection{资源子网}
+
+
+\subsubsection{通信子网}
+
+
+\section{功能}
+
+\subsection{资源共享}
+
+
+\subsection{数据通信}
+
+
+\subsection{分布式处理}
+
+
+\subsection{提高可靠性}
+
+
+\subsection{负载均衡}
+
+
+\subsection{其他}
+
+
+\section{交换技术}
+
+\subsection{电路交换}
+用于电话网络
+
+过程：\begin{enumerate}
+    \item 建立连接（尝试占用资源）
+    \item 通信（持续占用资源）
+    \item 释放连接（归还通信资源）
+\end{enumerate}
+
+优点：\begin{itemize}
+    \item 数据直送、效率高
+    \item 适用于低频次大量交换数据
+\end{itemize}
+
+缺点：\begin{itemize}
+    \item 
+\end{itemize}
+
+\subsubsection{性能}
+
+
+\subsection{报文交换}
+用于电报网络
+
+\subsubsection{性能}
+
+
+\subsection{分组交换}
+用于现代网络
+
+\subsubsection{性能}
+
+
+\subsection{虚电路交换}
+基于分组交换。
+
+
+
+\section{分类}
+
+\subsection{按分布范围}
+
+\subsubsection{WAN广域网}
+
+\subsubsection{MAN城域网}
+使用以太网技术。
+
+\subsubsection{LAN局域网}
+使用以太网技术。
+
+\subsubsection{PAN个域网}
+
+
+\subsection{按传输技术}
+
+
+\subsection{按拓扑结构}
+
+
+\subsection{按使用者}
+
+
+\subsection{按传输介质}
+
+
+\section{性能指标}
+一条通信线路在逻辑上往往对应一条发送信道和一条接收信道。
+
+\subsection{速率}
+又称数据率、比特率、数据传输速率。
+
+单位：bit/s、b/s、bps。
+
+计网默认\(1K = 10^3\)；计组操作系统默认\(1K = 2^{10}\)
+
+
+
+\subsection{带宽}
+某信道所能传送的最高数据率。
+
+节点间通信所能达到的最高速率由带宽、节点性能共同限制。
+
+五类网线：带宽 = 100Mbps
+
+
+\subsection{吞吐量}
+单位时间内通过某网络（信道、接口）的实际数据量。
+
+
+\subsection{时延}
+数据从网络一端到另一端所需时间。
+
+总时延 = 发送时延（传输时延） + 传播时延 、处理时延 + 排队时延
+
+发送时延（传输时延） = \(\dfrac{\text{数据长度bit}}{\text{发送速率bit/s}}\)
+
+传播时延 = \(\dfrac{\text{信道长度m}}{\text{信道中传播速度m/s}}\)
+
+
+\subsection{时延带宽积}
+一条链路中，已从发送端发出但未到接收端的最大比特数。
+
+时延带宽积 = 传播时延 * 带宽
+
+用于设计最短帧长。
+
+
+\subsection{RTT往返时延}
+发送方发完数据到发送方收到接收方发的确认的时间。
+
+RTT = 数据单向传播时延 + 接收方处理时延 + 确认的发送时延 + 确认的传播时延
+
+
+\subsection{信道利用率}
+某个信道百分之多少的时间是有数据通过的
+
+信道利用率 = \(\dfrac{\text{有数据通过的时间}}{\text{有数据通过的时间 + 没有数据通过的时间}}\)
+
+太低浪费资源；太高网络阻塞。
+
+
+\section{分层结构}
+
+\subsection{设计思想}
+在逻辑上划分层次，将功能安排在层次中。
+
+
+\subsection{三种常见结构}
+标号小的在下层。
+
+\subsubsection{OSI}
+法律上标准。
+\begin{enumerate}
+    \item 物理层：集线器
+    \item 数据链路层：交换机
+    \item 网络层（网际层）：路由器
+    \item 运输层（传输层）
+    \item 会话层
+    \item 表示层
+    \item 应用层
+\end{enumerate}
+
+
+\subsubsection{TCP/IP}
+实际上标准。
+\begin{enumerate}
+    \item 网络接口层
+    \item 网络层（网际层）
+    \item 运输层（传输层）
+    \item 应用层
+\end{enumerate}
+
+
+\subsubsection{五层模型}
+教学用。
+\begin{enumerate}
+    \item 物理层
+    \item 数据链路层
+    \item 网络层
+    \item 传输层
+    \item 应用层
+\end{enumerate}
+
+
+\subsection{网络体系结构}
+网络各层及其协议的集合，网络及其构建所完成功能的精确定义（不涉及实现）。
+
+体系结构是抽象的，实现是具体的。
+
+\subsubsection{实体}
+第n层中的活动元素（软件+硬件）称为第n层实体。
+
+
+\subsubsection{协议}
+是水平的。
+
+\paragraph{三要素}
+\begin{enumerate}
+    \item 语法：数据与控制信息的格式
+    \item 语义：需发出何种控制信息
+    \item 同步（时序）：执行各种操作的条件、时序关系
+\end{enumerate}
+
+
+\subsubsection{接口}
+又称服务访问点。
+
+
+\subsubsection{服务}
+是垂直的。
+
+下层为相邻上次提供的功能调用。
+
+
+\subsection{各层之间关系}
+
+每个层次实现一个或多个功能。
+
+上层实体通过接口请求相邻下层的服务。
+
+\subsubsection{PDU协议数据单元}
+对等层次之间传送的数据单位
+
+
+\subsubsection{SDU服务数据单元}
+为完成上一层实体所要求的功能所传送的数据单位
+
+
+\subsubsection{PCI协议控制信息}
+控制协议操作的信息。
+
