@@ -73,6 +73,68 @@
 分贝记法： = 10\(\log_{10}\)S/N（单位分贝）
 
 
+\section{编码与调制}
+
+\subsection{概念}
+
+\paragraph{编码}
+二进制数据到数字信号
+
+\paragraph{解码}
+数字信号到二进制数据
+
+\paragraph{调制}
+二进制数据到模拟信号
+
+\paragraph{解调}
+模拟信号到二进制数据
+
+
+\subsection{常用编码方式}
+\begin{itemize}
+    \item NRZ不归零编码：低0高1，中不变
+    \item RZ归零编码：低0高1，中归零
+    \item NRZI反向非归零编码：跳0不跳1，看起点，中不变
+    \item 曼彻斯特编码：跳0反跳1，看中间，中必变；\textbf{以太网}默认使用；
+    \item 差分曼彻斯特编码：跳0不跳1，看起点，中必变
+\end{itemize}
+
+\subsubsection{曼彻斯特两种标准}
+\begin{enumerate}
+    \item 上0下1，IEEE标准，408常用
+    \item 下0上1
+\end{enumerate}
+
+
+\subsubsection{各种编码特点}
+
+
+\subsection{常用调制方式}
+\begin{itemize}
+    \item AM调幅（辐移键控ASK）：\(y = \begin{cases}
+        0 * \sin2x,\ 0 \\ 
+        1 * \sin2x,\ 1
+    \end{cases}\)
+    \item FM调频（频移键控FSK）：\(y = \begin{cases}
+        \sin1x,\ 0 \\ 
+        \sin2x,\ 1
+    \end{cases}\)
+    \item PM调相（相移键控PSK）：\(y = \begin{cases}
+        \sin(x + 0),\ 0 \\ 
+        \sin(x + \pi),\ 1
+    \end{cases}\)
+    \item QAM正交幅度调制：AM、PM结合起来的叠加信号，m种幅值、n种相位，mn种信号。
+\end{itemize}
+
+\subsubsection{QAM调制方案}
+\begin{itemize}
+    \item QAM-16：16种信号，4bit
+    \item QAM-32：32种信号，5bit
+    \item QAM-64：64种信号，6bit
+    \item QAM-128：128种信号，7bit
+\end{itemize}
+
+
 
 
 
