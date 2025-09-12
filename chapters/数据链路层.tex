@@ -251,4 +251,16 @@ n位信息位，k位校验位，则\(2^k >= n + k + 1\)。校验位\(P_i\)放到
 \end{itemize}
 
 
+\subsection{随机访问}
+
+\subsubsection{ALOHA协议}
+\begin{itemize}
+    \item 纯ALOHA：准备好数据帧就立即发送；
+    \item 时隙ALOHA：时隙大小固定=传送一个最长帧所需时间；仅在时隙开始时才发送帧；\begin{itemize}
+        \item 发生冲突时，发生冲突的各节点随机推迟若干时隙；
+        \item 避免用户发送数据的随机性，降低冲突概率，提高利用率；
+    \end{itemize}
+\end{itemize}
+
+
 
