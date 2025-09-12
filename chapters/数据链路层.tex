@@ -278,3 +278,39 @@ n位信息位，k位校验位，则\(2^k >= n + k + 1\)。校验位\(P_i\)放到
         \item 属于坚持与非坚持的折中，降低冲突的同时提高利用率；
     \end{itemize}
 \end{itemize}
+
+
+\subsubsection{CSMA/CD协议}
+用于早期以太网（总线型）。
+
+\begin{itemize}
+    \item 先听后发，边听边发，冲突停发，随机重发；
+    \item 随机重发：截断二进制指数退避算法：随机等待一段时间=r倍\textbf{争用期}\footnote{是一段固定大小的时间，=2*最远单向传播时延}，r是随机数\begin{itemize}
+        \item 若\(k <= 10\)，在\([0, 2^k - 1]\)内随机取一个整数r；
+        \item 若\(k > 10\)，在\([0, 2^{10} - 1]\)内随机取一个整数r；
+    \end{itemize}
+    \item \begin{itemize}
+        \item 第10次冲突，是随机重发的分水岭；
+        \item 第16次冲突，放弃传帧，报告上级（网络层）
+    \end{itemize}
+\end{itemize}
+
+若争用期内未发生冲突，则不可能再冲突。
+
+CSMA/CD没有ACK机制，若未检测到冲突，则认为帧发送成功。
+
+\paragraph{最短帧长}
+= 2 * 最远单向传播时延 * 信道带宽。
+
+若收到帧小于最短帧长，则视为无效帧。
+
+\paragraph{最长帧长}
+防止某些节点一直占用信道。
+
+\paragraph{以太网规定}
+\begin{itemize}
+    \item 最短帧长64B
+    \item 最长帧长1518B
+\end{itemize}
+
+
