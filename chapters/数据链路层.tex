@@ -124,6 +124,65 @@ n位信息位，k位校验位，则\(2^k >= n + k + 1\)。校验位\(P_i\)放到
 \subsection{流量控制}
 
 
+\subsection{滑动窗口机制}
+可靠传输与流量控制基于滑动窗口机制实现。
+
+接收方通过确认机制控制发送方窗口滑动
+
+
+\subsection{停止等待协议S-W}
+\begin{itemize}
+    \item 滑动窗口：发送窗口\(W_T = 1\)，接收窗口\(W_R = 1\)
+    \item 确认机制：确认帧ACK\_i，接收方收到i号帧，没有检出错，返回确认帧ACK\_i
+    \item 重传机制：超时重传
+    \item 帧编号：仅需1bit给帧编号，需要\(W_T + W_R <= 2^n\)；用于区别重复帧
+\end{itemize}
+
+\subsubsection{异常情况}
+\begin{itemize}
+    \item 数据帧丢失：超时重传，重置计时器，计时器超时前收到确认帧
+    \item 确认帧丢失：超时重传，接收方收到重复帧，丢弃帧并返回重复帧的ACK
+    \item 数据帧出错：丢弃帧，等发送方超时重传
+\end{itemize}
+
+
+\subsection{后退N帧协议GBN}
+\begin{itemize}
+    \item 滑动窗口：发送窗口\(W_T > 1\)，接收窗口\(W_R = 1\)
+    \item 确认机制：确认帧ACK\_i，接收方收到i号帧，没有检出错，返回确认帧ACK\_i；连续收到多个数据帧，仅传最后一个ACK\_i
+    \item 重传机制：超时重传；若未收到ACK\_i，重传i及之后所有帧
+    \item 帧编号：至少需nbit给帧编号，需要\(W_T + W_R <= 2^n\)；
+\end{itemize}
+
+\subsubsection{异常情况}
+\begin{itemize}
+    \item 数据帧丢失：
+    \item 确认帧丢失：
+    \item 数据帧出错：
+\end{itemize}
+
+
+\subsection{选择重传协议SR}
+\begin{itemize}
+    \item 滑动窗口：发送窗口\(W_T > 1\)，接收窗口\(W_R > 1\)
+    \item 确认机制：\begin{itemize}
+        \item 确认帧ACK\_i，接收方收到i号帧，没有检出错，返回确认帧ACK\_i；不支持累计确认
+        \item 否认帧：NAK\_i，接收方收到i帧，但出错，丢弃帧并返回NAK\_i
+    \end{itemize}
+    \item 重传机制：\begin{itemize}
+        \item 超时重传；
+        \item 请求重传，发送方收到NAK\_i，则重传i
+    \end{itemize}
+    \item 帧编号：至少需nbit给帧编号，需要\(W_T + W_R <= 2^n\)且\(W_R <= W_T\)；
+\end{itemize}
+
+\subsubsection{异常情况}
+\begin{itemize}
+    \item 数据帧丢失：
+    \item 确认帧丢失：
+    \item 数据帧出错：
+\end{itemize}
+
 
 \subsection{介质访问控制}
 
