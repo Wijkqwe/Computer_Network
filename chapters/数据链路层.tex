@@ -131,6 +131,7 @@ n位信息位，k位校验位，则\(2^k >= n + k + 1\)。校验位\(P_i\)放到
 
 
 \subsection{停止等待协议S-W}
+不属于滑动窗口协议。
 \begin{itemize}
     \item 滑动窗口：发送窗口\(W_T = 1\)，接收窗口\(W_R = 1\)
     \item 确认机制：确认帧ACK\_i，接收方收到i号帧，没有检出错，返回确认帧ACK\_i
@@ -184,7 +185,31 @@ n位信息位，k位校验位，则\(2^k >= n + k + 1\)。校验位\(P_i\)放到
 \end{itemize}
 
 
-\subsection{介质访问控制}
+\subsection{三种协议}
+\begin{itemize}
+    \item 滑动窗口协议：S-W不属于滑动窗口协议；GBN、SR属于滑动窗口协议。
+    \item ARQ协议（自动重传请求协议）：包括S-W、GBN、SR。\begin{itemize}
+        \item 连续ARQ协议：只包括GBN、SR。
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{信道利用率}
+\(T_D\)数据传输时延，\(RTT\)两倍的单向传输时延，\(T_A\)确认帧传输时延，发送窗口大小\(N\)。
+\begin{itemize}
+    \item S-W：理想情况下\footnote{没有帧丢失、比特错误等异常情况}\(U = \dfrac{T_D}{T_D + RTT + T_A}\)，若\(T_A\)极短，则通常可忽略不计。
+    \item GBN、SR：\(U = \dfrac{NT_D}{T_D + RTT + T_A}\)；当\(NT_D >= T_D + RTT + T_A\)，则U为1（不能大于1）；常结合考察帧编号\footnote{\(W_T + W_R <= 2^n\)}。
+    \begin{itemize}
+        \item 相同nbit给帧编号，GBN\(W_R\)更小，\(W_T\)更大，故信道利用率也更大。
+    \end{itemize}
+\end{itemize}
+
+
+
+
+\subsection{介质访问控制MAC}
+
+\subsubsection{信道划分}
+
 
 
 
