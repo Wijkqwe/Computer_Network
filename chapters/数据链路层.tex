@@ -57,6 +57,43 @@ HDLC协议、PPP协议使用。
 
 \subsection{差错控制}
 
+\paragraph{目标}
+发现并解决一个帧内部的“位错”。
+
+
+\subsubsection{检错编码}
+接收方\textbf{发现比特错}后丢弃帧，通知发送方重传帧。
+
+\paragraph{奇偶校验码}
+整个校验码（有效信息位+校验位）中1的个数。
+\begin{itemize}
+    \item 奇校验码：1的个数为奇数；
+    \item 偶校验码：1的个数为偶数；
+\end{itemize}
+\subparagraph{偶校验硬件实现}
+各信息位进行\textbf{异或}运算，结果为偶校验位。将偶校验的信息位、校验位异或，结果为0则没有错误。
+
+仅能检测处奇数位错误，无纠错能力。
+
+
+\paragraph{CRC码（循环冗余校验）}
+发送接收方约定一个“除数”，K信息位、R校验位作为“被除数”，添加校验位后保证除法余数为0。
+
+\subparagraph{构造}
+设生成多项式\(G(x)\)，R位数为\(G(x)\)最高次幂，二进制码为多项式系数。信息位左移R位，对二进制码进行模2除法，得到余数即除数，除数有R + 1位。
+
+\subparagraph{纠错}
+\begin{itemize}
+    \item 可检测所有奇数个错误
+    \item 可检测所有双比特错误
+    \item 可检测所有小于等于校验位长度的连续错误
+    \item 若选择合适多项式，且\(2^R >= K + R + 1\)，则可纠正单比特错
+\end{itemize}
+
+
+\subsubsection{纠错编码}
+
+
 
 \subsection{可靠传输}
 
