@@ -93,6 +93,28 @@ HDLC协议、PPP协议使用。
 
 \subsubsection{纠错编码}
 
+\paragraph{海明校验码}
+信息位分组进行偶校验->多个校验位->标注出错位置
+\subparagraph{位数}
+n位信息位，k位校验位，则\(2^k >= n + k + 1\)。校验位\(P_i\)放到海明位\(2^{i - 1}\)上，信息位按顺序放到其余位置。
+\subparagraph{海明位}
+\(H_{n + k} ...H_2 H_1\)
+\subparagraph{校验位}
+\(P_k...P_2P_1\)。以7位海明码为例，\(P_1 = H_3 \oplus H_5 \oplus H_7 = D_1 \oplus D_2 \oplus D_4\)（3低位1，5低位1，6低位0，7低位1）
+\subparagraph{格式转换}
+海明位\(H_1H_2...H_{n + k}\)，校验位\(P_1P_2...P_1\)
+\subparagraph{纠错}
+\(S_1 = P_1 \oplus D_1 \oplus D_2 \oplus D_4\)，0则无错
+\subparagraph{纠错能力}
+1位
+\subparagraph{检错能力}
+2位
+\subparagraph{全校验位}
+\(P_{\text{全}} = S_k...S_1\)\begin{itemize}
+    \item 为0且偶校验成功\(\Rightarrow\)无错
+    \item 不为0且偶校验失败\(\Rightarrow\)1位错，纠正即可
+    \item 不为0且偶校验成功\(\Rightarrow\)2位错，需重传
+\end{itemize}
 
 
 \subsection{可靠传输}
