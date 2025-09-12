@@ -263,4 +263,18 @@ n位信息位，k位校验位，则\(2^k >= n + k + 1\)。校验位\(P_i\)放到
 \end{itemize}
 
 
-
+\subsubsection{CSMA协议}
+载波监听多路访问协议。发送数据前，先监听信道是否空闲，若空闲，则尝试发送。
+\begin{itemize}
+    \item 1-坚持CSMA协议：坚持表示若信道不空闲则坚持监听\begin{itemize}
+        \item 优点：信道利用率高，一旦空闲就被下一信道使用；
+        \item 缺点：多个节点准备好时，一旦空闲，多个节点同时发送，冲突概率高；
+    \end{itemize}
+    \item 非坚持CSMA协议：\begin{itemize}
+        \item 优点：多个节点准备好时，若不空闲，则随机推迟一段时间再尝试监听；
+        \item 刚空闲时可能不会立即被利用，信道利用率低；
+    \end{itemize}
+    \item p-坚持CSMA协议：\begin{itemize}
+        \item 属于坚持与非坚持的折中，降低冲突的同时提高利用率；
+    \end{itemize}
+\end{itemize}
