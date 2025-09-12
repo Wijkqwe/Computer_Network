@@ -204,11 +204,29 @@ n位信息位，k位校验位，则\(2^k >= n + k + 1\)。校验位\(P_i\)放到
 \end{itemize}
 
 
+\section{介质访问控制MAC}
+
+\subsection{信道划分}
+
+\subsubsection{时分复用TDM}
+时间分为等长TDM帧，每个帧分为等长m个时隙，将m个时隙分给m对用户（节点）使用。
+
+缺点：每个节点最多分配到信道总带宽的\(\dfrac{1}{m}\)；若某节点暂不发送数据，时隙闲置，信道利用率低。
 
 
-\subsection{介质访问控制MAC}
+\subsubsection{统计时分复用STDM}
+又称\textbf{异步时分复用}。在TDM基础上，动态分配时隙。
 
-\subsubsection{信道划分}
+优点：
+
+
+\subsubsection{频分复用FDM}
+将信道总频带划分为多个子频带，每个子频带作为一个子信道，每对用户使用一个子信道。
+
+
+
+
+
 
 
 
