@@ -224,10 +224,31 @@ n位信息位，k位校验位，则\(2^k >= n + k + 1\)。校验位\(P_i\)放到
 将信道总频带划分为多个子频带，每个子频带作为一个子信道，每对用户使用一个子信道。
 
 
+\subsubsection{波分复用WDM}
+即\textbf{光的频分复用}。
 
 
+\subsubsection{码分复用CDM}
+是CDMA的底层原理。
 
-
+\begin{itemize}
+    \item 给各节点分配专属“码片序列”：\begin{itemize}
+        \item 码片序列包含m个码片，可看作m维向量；
+        \item 各节点m维向量相互正交；
+        \item 相互通信的节点知道彼此码片序列；
+    \end{itemize}
+    \item 发送方发送数据：\begin{itemize}
+        \item 发出m个信号值与码片序列相同，表示比特1；
+        \item 发出m个信号值与码片序列相反，表示比特0；
+    \end{itemize}
+    \item 信号在传输过程中叠加：\begin{itemize}
+        \item 本质m维向量的加法；
+    \end{itemize}
+    \item 接收方接收数据：收到叠加信号，从中分离各发送方数据，与发送方码片序列作规格化内积\begin{itemize}
+        \item 结果为1，表示比特1；
+        \item 结果为-1，表示比特0；
+    \end{itemize}
+\end{itemize}
 
 
 
