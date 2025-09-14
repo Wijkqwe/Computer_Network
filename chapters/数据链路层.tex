@@ -281,7 +281,7 @@ n位信息位，k位校验位，则\(2^k >= n + k + 1\)。校验位\(P_i\)放到
 
 
 \subsubsection{CSMA/CD协议}
-用于早期以太网（总线型）。
+CD表示冲突检测。用于早期以太网（总线型）。
 
 \begin{itemize}
     \item 先听后发，边听边发，冲突停发，随机重发；
@@ -312,5 +312,45 @@ CSMA/CD没有ACK机制，若未检测到冲突，则认为帧发送成功。
     \item 最短帧长64B
     \item 最长帧长1518B
 \end{itemize}
+
+
+\subsubsection{CSMA/CA协议}
+CA表示冲突避免。用于IEEE 802.11无线局域网（WiFi）
+
+\begin{itemize}
+    \item 发送方：先听后发：忙则退避：\begin{itemize}
+        \item 
+        \item 
+    \end{itemize}
+    \item 随机退避原则：
+    \item 接收方：停止等待协议：每收到一个正确数据帧发送一个ACK；
+\end{itemize}
+
+\paragraph{信道预约机制（可选功能）}
+\begin{itemize}
+    \item 发送方广播RTS控制帧\footnote{请求发送，包括：源地址、目的地址、通信所需持续时间}（需指明预约时长）
+    \item AP（接入点，包括WiFi热点）\footnote{家庭路由器 = 路由器 + 交换机 + AP；}广播CTS控制帧\footnote{允许发送，包括：源地址、目的地址、通信所需持续时间}（需指明预约时长）
+    \item 其他无关节点收到CTS后自动禁言一段时间（虚拟载波监听机制），发送方收到CTS后可以发送数据帧；
+    \item AP收到数据帧后，进行CRC校验，若无差错则返回ACK帧；
+\end{itemize}
+
+\paragraph{帧间间隔IFS}
+\begin{itemize}
+    \item DIFS：最长IFS，每次帧事务开始时需要等待的时间
+    \item SIFS：最短IFS，收到一个帧后需要预留的一段处理时间
+    \item PIFS：中等长度IFS，考研可不关注
+\end{itemize}
+
+
+\paragraph{为什么不CSMA/CD？}
+\begin{enumerate}
+    \item 硬件难以实现边听边发、冲突检测；
+    \item 存在隐蔽站问题；
+\end{enumerate}
+
+
+\subsection{轮询访问}
+
+
 
 
