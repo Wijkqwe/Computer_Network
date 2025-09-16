@@ -470,7 +470,27 @@ AP通常可进行帧格式转换，可将在无线链路上传输的802.11帧格
 \subsection{硬件架构}
 
 
+\subsection{VLAN}
+虚拟局域网。802.1Q
+\begin{itemize}
+    \item 将一个大型局域网分为多个小型VLAN，\textbf{每个VLAN是一个广播域}。
+    \item 需要使用支持VLAN功能的以太网交换机实现。
+    \item 每个VLAN对应一个VID
+\end{itemize}
+
+\subsubsection{划分方式}
+\begin{enumerate}
+    \item 基于接口
+    \item 基于MAC地址
+    \item 基于IP地址，可让VLAN范围跨越路由器，让多个局域网主机组成一个VLAN（需网络层支持）
+\end{enumerate}
 
 
+\subsubsection{802.1Q帧的作用}
+主机与交换机之间，传输标准以太网帧；交换机与交换机之间，传输802.1Q帧
+
+
+\subsubsection{802.1Q帧的结构}
+在标准以太网帧的源地址之后插入VLAN标签4B。
 
 
