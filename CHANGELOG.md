@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 	- 802
 	- VLAN
 	- 广域网
+	- 以太网交换机
+- 网络层
+	- 功能
 - Changelog file.
 
 
