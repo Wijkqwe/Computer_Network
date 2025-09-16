@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - 数据链路层
 	- 随机访问
+	- 令牌传递协议（轮询访问）
+	- 局域网
 - Changelog file.
 
 
