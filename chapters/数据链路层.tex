@@ -494,3 +494,53 @@ AP通常可进行帧格式转换，可将在无线链路上传输的802.11帧格
 在标准以太网帧的源地址之后插入VLAN标签4B。
 
 
+\section{广域网}
+
+通信子网使用\textbf{分组交换技术}。
+
+\subsection{点对点协议PPP}
+只支持全双工链路。
+
+应满足要求：\begin{itemize}
+    \item 
+\end{itemize}
+
+无需满足：
+
+三个组成部分：\begin{enumerate}
+    \item 一个将IP数据报封装到串行链路的方法；
+    \item 链路控制协议LCP；
+    \item 网络控制协议NCP；
+\end{enumerate}
+
+帧格式：
+
+
+\subsection{高级数据链路控制HDLC协议}
+数据报文可透明传输（0比特插入法）易于硬件实现。
+
+采用全双工通信。
+
+所有帧使用CRC检验，对信息帧进行顺序编号，传输可靠性高。
+
+站：\begin{itemize}
+    \item 主站
+    \item 从站
+    \item 复合站
+\end{itemize}
+
+三种数据操作方式：\begin{itemize}
+    \item 
+\end{itemize}
+
+帧格式
+
+
+\subsection{比较}
+同\begin{itemize}
+    \item 都仅全双工
+    \item 都透明传输
+    \item 都差错检测但不纠错
+\end{itemize}
+
+异：
