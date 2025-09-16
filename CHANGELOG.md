@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 	- 随机访问
 	- 令牌传递协议（轮询访问）
 	- 局域网
+	- 802
 - Changelog file.
 
 
