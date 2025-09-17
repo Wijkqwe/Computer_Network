@@ -20,6 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 网络层
 	- 功能
 	- IPv4
+	- IP数据报
+	- IP分类方案
 - Changelog file.
 
 
