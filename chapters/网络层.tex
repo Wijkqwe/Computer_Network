@@ -62,14 +62,40 @@ ICMP协议用于网络层各实体之间相互通知异常事件。
 IGMP协议用于实现IP组播。
 
 
-\subsection{IP数据报（IP分组）的格式}
+\section{IP数据报（IP分组）}
+
+\subsection{格式}
 \begin{itemize}
     \item 首部（最小20B，最大\(2^4 * 4B = 60B\)\begin{itemize}
-        \item 固定部分（20B）：|版本4bit\footnote{区分网络层使用的IP协议版本（v4、v6）}|首部长度4bit\footnote{0\(\sim\)15，以*4B为单位}|区分服务8bit\footnote{一般用不到}|总长度16bit\footnote{0\(\sim\)65535，以*1B为单位，涵盖首部和数据部分}|标识|标志|片偏移|生存时间|协议|首部检验和|源地址|目的地址
+        \item 固定部分（20B）：|版本4bit\footnote{区分网络层使用的IP协议版本（v4、v6）}|首部长度4bit\footnote{0\(\sim\)15，以*4B为单位}|区分服务8bit\footnote{一般用不到}|总长度16bit\footnote{0\(\sim\)65535，以*1B为单位，涵盖首部和数据部分}|
+        
+        |标识16bit\footnote{由IP数据报源主机生成，一般为自增序列}|标志3bit\footnote{最低位MF，MF=1，后面还有分片；MF=0，后面没有分片。次低位DF，DF=1，不允许被切片；DF=0，允许被切片}|片偏移13bit\footnote{数据部分在被分片前的位置，以*8B为单位}|
+        
+        |生存时间8bit\footnote{数据报在网络中可通过的路由器数的最大值TTL。初值由源主机设置，每经过一个路由器TTL-=1；若减到0，则丢弃，并向源主机发送ICMP报文}|协议8bit\footnote{若为TCP，则设为6；若为UDP，则设为17}|首部检验和16bit\footnote{每个路由器仅校验首部，若该字段设为全0，表示不用校验；校验和计算方法与UDP相同}|
+        
+        |源地址32bit发送方IP地址|
+        
+        |目的地址32bit接收方IP地址|
+        
         \item 可变部分（0\(\sim\)40B）：可选字段（长度可变）|填充（凑足4B的整数倍）
     \end{itemize}
     \item 数据部分：最小0B，理论最长=65535-20=65515B
 \end{itemize}
+
+
+\subsection{分片问题}
+一个数据链路层帧能承载的最大数据量称为\textbf{最大传送单元MTU}。若一个IP数据报的总长度超出了下一段链路的MTU，则需要分片。
+
+每个分片都可被独立转发，即都包含首部。
+\begin{itemize}
+    \item 分片可能在\textbf{源主机或任一路由器}中发生
+    \item 只有目的主机会对分片进行重组
+    \item 各分片可能乱序到达
+    \item 由于首部的片偏移字段以*8B为单位，故除最后一个分片外，其余分片数据部分为8B的整数倍
+\end{itemize}
+
+
+
 
 
 
