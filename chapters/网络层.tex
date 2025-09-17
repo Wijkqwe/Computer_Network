@@ -1,0 +1,77 @@
+
+\chapter{网络层}
+
+为传输层提供服务，将传输层数据封装成IP数据报。网络中路由器根据IP数据报首部源IP地址、目的IP地址进行分组转发，实现“主机到主机”的传输。
+
+\section{功能}
+
+\subsection{异构网络互联}
+
+\paragraph{异构}
+每个网络拓扑结构不同，物理层、链路层实现不同、主机类型不同。
+
+
+\paragraph{重要设备}
+路由器。TCP/IP文献中，路由器又称网关。
+
+
+\subsection{路由与转发}
+
+\subsubsection{路由}
+各路由器之间相互配合，规划IP数据报的最佳转发路径。
+
+各路由器需要允许路由协议，最终生成各自的路由表。
+
+
+\subsubsection{转发}
+一台路由器根据自己的\textbf{转发表}，将IP数据报从合适的接口转发出去。
+
+转发表 = 精简路由表。数据结构更简洁，便于快速检索。
+
+
+\subsection{拥塞控制}
+
+\subsubsection{拥塞}
+
+\subparagraph{原因}
+出现过量分组，超负荷，性能下降。
+
+
+\subparagraph{现象}
+分组数增加，吞吐率下降。
+
+
+\subsubsection{开环控制（静态）}
+部署网络时，提前设计好预防拥塞的方法，一旦开始运行便不再修改。
+
+
+\subsubsection{闭环控制（动态）}
+动态监测网络状态，及时发现拥塞，将拥塞信息传给路由器。相关路由器及时调整路由表。
+
+
+\section{IPv4}
+
+\subsubsection{各协议之间关系}
+
+IP协议是互联网的核心。
+
+ARP协议用于查询同一网络中，<IP, MAC>之间的映射关系。
+
+ICMP协议用于网络层各实体之间相互通知异常事件。
+
+IGMP协议用于实现IP组播。
+
+
+\subsection{IP数据报（IP分组）的格式}
+\begin{itemize}
+    \item 首部（最小20B，最大\(2^4 * 4B = 60B\)\begin{itemize}
+        \item 固定部分（20B）：|版本4bit\footnote{区分网络层使用的IP协议版本（v4、v6）}|首部长度4bit\footnote{0\(\sim\)15，以*4B为单位}|区分服务8bit\footnote{一般用不到}|总长度16bit\footnote{0\(\sim\)65535，以*1B为单位，涵盖首部和数据部分}|标识|标志|片偏移|生存时间|协议|首部检验和|源地址|目的地址
+        \item 可变部分（0\(\sim\)40B）：可选字段（长度可变）|填充（凑足4B的整数倍）
+    \end{itemize}
+    \item 数据部分：最小0B，理论最长=65535-20=65515B
+\end{itemize}
+
+
+
+
+
