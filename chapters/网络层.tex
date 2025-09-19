@@ -186,5 +186,19 @@ IGMP协议用于实现IP组播。
 \end{enumerate}
 
 
+\subsection{CIDR无分类编址}
+
+\paragraph{原因}
+传统IP分类方式资源分配不灵活，利用率低，有限资源很快耗尽。
+
+32bit IP地址：网络前缀（可变长）|主机号
+
+
+\subsubsection{定长子网划分}
+CIDR地址块中，主机号前kbit作为定长子网号，可划分\(2^k\)个子网
+
+\subsubsection{变长子网划分}
+CIDR地址块中，子网号长度不固定，每个子网含IP地址块大小不同。
+
 
 
