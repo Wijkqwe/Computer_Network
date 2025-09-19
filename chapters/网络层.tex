@@ -105,12 +105,85 @@ IGMP协议用于实现IP组播。
     \item 多播地址：D类（224-239）：|1|1|1|0|多播地址|
     \item 保留使用：E类（240-255）：|1|1|1|1|保留使用|
 \end{itemize}
+若一个网络中，主机号占nbit，则该网络中最多支持\(2^n - 2\)台主机或路由器。
+
+\subsubsection{特殊IP地址}
+\begin{center}
+    \begin{tabular}{c|c}
+        \hline
+        网络号 & 主机号 \\
+        \hline
+        Y & 全0 \\ 
+        \hline
+        Y & 全1 \\ 
+        \hline
+        0 & Y \\ 
+        \hline
+        全0 & 全0 \\
+        \hline
+        全1 & 全1 \\ 
+        \hline
+        127 & 非全0且非全1 \\ 
+        \hline
+    \end{tabular}
+\end{center}
 
 
+\subsection{子网划分}
+设某IP地址段，主机号占n bit，可将前k bit作为子网号，剩下n-k bit作为主机号，则可划分出\(2^k\)个子网。每个子网包含IP地址块大小相同。
+
+\begin{itemize}
+    \item 划分前：IP地址两级结构<网络号，主机号>
+    \item 划分后：IP地址三级结构<网络号，子网号，主机号>
+\end{itemize}
+
+每个子网地址中，主机号不能全0或全1.
 
 
+\subsection{子网掩码}
+子网掩码、IP地址逐位与得到<网络号，子网号>（合称为\textbf{网络前缀}）。只有网络前缀相同的IP地址，才能归属同一网络（子网）。
+
+若一个网络内部进行子网划分，则网络中每台主机、路由器接口都需要配置IP地址、默认网关、子网掩码。
+
+若一台路由器支持子网划分技术，则转发表中，应包含<目的网络号，子网掩码，转发接口>
 
 
+\subsection{默认子网掩码}
+若一个传统网络（A/B/C类）内没有进行子网划分，则将对应此网络的\textbf{转发表项}设为默认子网掩码。
+
+
+\subsection{默认路由}
+默认路由（默认转发表项）设置：<目的网络号全0，子网掩码全0>
+
+在路由转发表中，若所有表项都不匹配，则转发默认路由。
+
+
+\subsection{主机发送IP数据报的过程}
+\begin{enumerate}
+    \item 判断目的主机和本机是否处于同一网络\begin{enumerate}
+        \item 检测本机IP地址和目的IP地址网络前缀是否相同。相同则同一网络；否则非同一网络。
+    \end{enumerate}
+    \item 将IP数据报封装成MAC帧并发送到链路上\begin{itemize}
+        \item 若属于同一网络，则通过ARP协议找到目的主机的MAC地址，将IP数据报封装成帧，将帧发给\textbf{目的主机}。
+        \item 若不属于同一网络，通过ARP协议找到默认网关的MAC地址，将IP数据报封装成帧，将帧发给\textbf{默认网关}。
+    \end{itemize}
+\end{enumerate}
+
+
+\subsection{路由器转发IP数据报的过程}
+\begin{enumerate}
+    \item 路由器某个接口收到一个IP数据报
+    \item 对数据报首部进行校验，从中找到\textbf{目的IP地址}
+    \item 查转发表\begin{itemize}
+        \item 转发表表项包含<目的网络号，子网掩码，转发接口>
+        \item 检查目的IP地址与每个表项是否能匹配（目的IP地址、子网掩码逐位与，匹配表项中的目的网络号）
+        \item 至少默认路由可以匹配成功
+    \end{itemize}
+    \item 转发\begin{itemize}
+        \item 根据3的结果，将IP数据报从匹配的接口中转发出去
+        \item 若匹配的转发接口与入口相同，则不再发送
+    \end{itemize}
+\end{enumerate}
 
 
 
