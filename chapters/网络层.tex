@@ -257,9 +257,38 @@ CIDR地址块中，子网号长度不固定，每个子网含IP地址块大小�
 \subsection{NAT网络地址转换}
 
 \subsubsection{私有IP地址（内网IP）}
+\[\begin{cases}
+    10.0.0.0 \sim 10.255.255.255 \\
+    172.16.0.0 \sim 172.31.255.255 \\
+    192.168.0.0 \sim 192.168.255.255
+\end{cases}\]
+\begin{itemize}
+    \item 只能分配给局域网内部节点
+    \item 可复用，只要求局域网内唯一
+    \item 局域网内部可自由分配
+\end{itemize}
 
 
+\subsubsection{全球IP地址（外网IP）}
+通常由ISP提供，全球唯一。
 
+是局域网与外界通信时使用的IP地址
+
+
+\subsubsection{NAT路由器}
+
+\paragraph{作用}
+转发IP数据报时，进行内网IP、外网IP的相互转换。
+
+\paragraph{NAT表}
+记录地址转换关系<内网IP:端口号\(\leftrightarrow\)外网IP:端口号>
+
+包含传输层功能（端口号是传输层概念）
+
+一个IP数据报\(\begin{cases}
+    \text{从内网到外网，会更改源IP地址、源端口号} \\ 
+    \text{从外网到内网，会更改目的IP地址、目的端口号}
+\end{cases}\)
 
 
 
