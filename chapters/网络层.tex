@@ -318,18 +318,52 @@ CIDR地址块中，子网号长度不固定，每个子网含IP地址块大小�
 \end{enumerate}
 
 
-\subsection{ICMP网际控制报文协议}
+\section{ICMP网际控制报文协议}
 属于网络层，ICMP报文封装在IP数据报中。
 
+让主机或路由器相互报告网络中差错和异常情况。
+
+\subsection{差错报告报文}
+\begin{itemize}
+    \item 终点不可达\(\begin{cases}
+        \text{路由器->发送方：目的IP地址不可达} \\ 
+        \text{目的主机->发送方：目的端口号不存在，没有对应进程}
+    \end{cases}\)
+    \item 时间超过\(\begin{cases}
+        \text{路由器->发送方：IP数据报到这里TTL=0} \\ 
+        \text{目的主机->发送方：IP数据报被切片，规定时间内未到齐，已全部丢弃}
+    \end{cases}\)
+    \item 参数问题-->发送方：IP数据报首部参数不合法，或首部校验出错
+    \item 改变路由（重定向）-路由器->发送方：对这个网络，下次使用另一路由器，路径更短
+\end{itemize}
 
 
+\subsection{询问报文}
+\begin{itemize}
+    \item 回送请求
+    \item 回送回答
+    \item 时间戳请求
+    \item 时间戳回答
+\end{itemize}
 
 
+\subsection{不必反馈差错报告报文的情况}
+\begin{itemize}
+    \item 若携带ICMP差错报告报文的IP数据报出错，不再反馈
+    \item 若IP数据报被分片，无论多少分片出错，只反馈一次
+    \item 若IP数据报目的地址为多播，不反馈
+    \item 若源地址特殊地址，不反馈
+\end{itemize}
 
 
+\subsection{典型应用}
+\begin{itemize}
+    \item ping：基于\textbf{回送请求报文、回送回答报文}实现功能
+    \item tracert：基于\textbf{时间超过报文}实现
+\end{itemize}
 
 
-
+\section{IPv6地址}
 
 
 
