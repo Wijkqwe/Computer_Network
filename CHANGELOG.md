@@ -26,6 +26,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 	- 子网掩码
 	- IP数据报过程
 	- CIDR
+	- 路由聚合
+	- DHCP
 - Changelog file.
 
 
