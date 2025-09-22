@@ -452,6 +452,44 @@ BGP协议使用。考纲未明确要求。
 \subsection{RIP}
 基于距离向量路由算法，网络数越多，距离向量越大。
 
+\subsubsection{位置}
+属于应用层，使用UDP传输数据（端口520），RIP报文位于UDP数据部分。
+\begin{enumerate}
+    \item Request报文：请求邻居路由器发送路由表，用于启动或查询
+    \item Response报文：响应请求或定时发送给邻居路由器，携带完整或部分路由表（每个Response报文最多携带25各路由表项信息，若路由表太大，则拆分为多个报文）
+\end{enumerate}
+
+
+\subsubsection{定义路径长度}
+\begin{enumerate}
+    \item 使用\textbf{跳数（或距离）}衡量到达目的网络的距离（路由器到直连网络的距离为1，每经过一个路由器距离加1）
+    \item 认为好的路由是跳数最少的
+    \item 允许一条合法路径距离不能超过15。距离=16表示网络不可达，因此只适用于小型AS
+\end{enumerate}
+
+
+\subsubsection{定义路由表（距离向量）格式}
+\begin{enumerate}
+    \item 每个路由器维护自己的路由表，路由表项3个关键字段<目的网络N，距离d，下一跳路由器地址X>
+    \item 每个路由器维护从它自身到其他每个目的网络的距离记录，即\textbf{距离向量}，包含在路由表中
+\end{enumerate}
+
+
+\subsubsection{之间如何交换信息}
+\begin{itemize}
+    \item 仅和直接相邻的路由器交换信息
+    \item 交换的信息是路由器的全部信息，即路由表（距离向量）
+    \item 通常按固定时间间隔交换信息\begin{itemize}
+        \item 可引入触发更新机制，路由器发现网络拓扑发生变化时，立即通告变换后的信息，不必等待间隔
+    \end{itemize}
+\end{itemize}
+
+
+\subsubsection{过程}
+
+
+\subsubsection{优劣}
+
 
 \subsection{OSPF}
 基于链路状态路由算法。
@@ -461,13 +499,17 @@ BGP协议使用。考纲未明确要求。
 
 
 \subsection{分层次}
+将世界网络划分为多个相互独立的自治系统AS。AS管理单位有权决定使用哪种\textbf{内部路由（网关）协议IGP}（RIP、OSPF）。
 
+每个AS至少一台\textbf{自治系统边界路由器}与其他系统相连。
 
+各边界路由器之间使用统一的\textbf{外部路由（网关）协议EGP}（BGP-4）。
 
+自治系统之间：域间路由选择
 
+自治系统内部：域内路由选择
 
-
-
+每个自治系统有全球唯一的AS编号。
 
 
 
