@@ -411,9 +411,56 @@ CIDR地址块中，子网号长度不固定，每个子网含IP地址块大小�
 \end{enumerate}
 
 
+\section{路由算法}
+路由选择算法。本质是图的最短路径问题。
+
+根据\textbf{能否随网络的通信量或拓扑自适应地进行调整变化}，分为两类：
+
+\subsection{静态路由算法}
+实现简单开销小，不具备自适应能力。
+
+由网络管理员手动配置每条路由。
 
 
+\subsection{动态路由算法}
+实现复杂开销大，具备自适应能力。
 
+路由器动态调整自身路由表。
+
+\subsubsection{距离向量路由算法}
+RIP协议使用。
+
+不必关系完整的网络拓扑结构。
+
+本质是Bellman-Ford算法在路由领域的应用。
+
+
+\subsubsection{链路状态路由算法}
+OSPF协议使用。
+
+要求每台路由器节点都了解完整的网络拓扑结构。
+
+只要一台路由器知道完整结构，可用\textbf{Dijkstra}找到最优路径。本质是Dijkstra在路由领域的应用。
+
+
+\subsubsection{路径-向量路由算法}
+BGP协议使用。考纲未明确要求。
+
+
+\section{路由协议}
+
+\subsection{RIP}
+基于距离向量路由算法，网络数越多，距离向量越大。
+
+
+\subsection{OSPF}
+基于链路状态路由算法。
+
+
+\subsection{BGP}
+
+
+\subsection{分层次}
 
 
 
