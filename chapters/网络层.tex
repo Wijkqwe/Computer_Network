@@ -529,6 +529,59 @@ OSPF中PDU常称为\textbf{OSPF分组}或\textbf{OSPF数据报}。定义了5中�
 
 \subsection{OSPF工作原理}
 
+\subsubsection{生成路由表}
+\begin{enumerate}
+    \item 构建LSDB\begin{itemize}
+        \item 路由器使用洪泛法将探测到的\textbf{链路状态信息}发送给其他路由器
+        \item 各台路由器根据其他路由器发来的\textbf{链路状态信息}构建\textbf{LSDB链路状态数据库}（本质是图的邻接表）
+    \end{itemize}
+    \item 运行Dijkstra算法，基于LSDB，计算到每一个网络的最短路径
+    \item 生成路由表，根据Dijkstra算法的结果，结构为<目的网络，下一条，到目的网络的距离>
+\end{enumerate}
+
+
+\subsubsection{区域划分}
+将AS划分为一个主干区域，多个非主干区域
+
+\paragraph{作用}
+\begin{itemize}
+    \item 洪泛范围局限在每个区域内部，降低洪泛压力
+    \item 一台普通路由器只需关注所在区域的网络拓扑，LSDB变小
+\end{itemize}
+
+
+\subsubsection{几类路由器}
+
+\paragraph{自治系统路由器ASBR}
+主干区域内至少一台，与其他自治系统相连
+
+\paragraph{区域边界路由器ABR}
+每个非主干区域至少一台，与主干区域相连
+
+\paragraph{区域内部路由器}
+非边界路由器，每个区域内有多台
+
+
+\subsection{OSPF分组}
+定义5种类型
+{\footnotesize\begin{center}
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        Type值 & 英文缩写 & 中文译名 & 作用 \\
+        \hline
+        1 & Hello Packet & 问候分组 & 建立维持邻居关系（每10s发一次，40s超时） \\ 
+        \hline
+        2 & DD Packet & 数据库描述分组 & 邻居建立时，发送LSDB摘要（LSA的头信息） \\ 
+        \hline
+        3 & LSR Packet & 链路状态请求分组 & 向邻居请求缺失的LSA\footnote{LSA：链路状态通告，OSPF定义的一种数据结构}（指明头信息） \\ 
+        \hline
+        4 & LSU Packet & 链路状态更新分组 & 向邻居传送具体的LSA（可能引发全网洪泛） \\ 
+        \hline
+        5 & LSAck Packet & 链路状态确认分组 & 收到邻居的LSU后，向邻居确认收到哪些LSA（头信息） \\ 
+        \hline
+    \end{tabular}
+\end{center}}
+
 
 \subsection{BGP}
 
@@ -547,7 +600,10 @@ OSPF中PDU常称为\textbf{OSPF分组}或\textbf{OSPF数据报}。定义了5中�
 每个自治系统有全球唯一的AS编号。
 
 
+\section{IP多播（组播）}
+属于多播组的设备被分配一个\textbf{组播组IP地址}（有共同需求的主机的相同标识）。
 
+组播地址范围为：224.0.0.0 \(\sim\) 239.255.255.255（D类地址）。一个D类地址表示一个组播组，只能用于\textbf{目的地址}，源地址只能是\textbf{单播地址}。
 
 
 
