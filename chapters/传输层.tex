@@ -1,7 +1,27 @@
 
 \chapter{传输层}
 
-\section{端口作用}
+\section{端口}
+
+\subsection{作用}
+
+\begin{itemize}
+    \item 通过\textbf{端口号}标识本机的一个进程\begin{itemize}
+        \item 每台主机的端口号相互独立
+        \item TCP、UDP端口号相互独立
+    \end{itemize}
+    \item TCP或UDP通过\textbf{Socket套接字=\{IP地址：端口号\}}唯一地标识网络上一台主机地一个应用进程
+\end{itemize}
+
+
+\subsection{分类}
+\begin{itemize}
+    \item 服务端使用\begin{itemize}
+        \item 熟知端口号\(0\sim 1023\)，通常只能用于被熟知的重要应用程序
+        \item 登记端口号\(1024 \sim 49151\)
+    \end{itemize}
+    \item 客户端使用：短暂端口号\(49152 \sim 65535\)
+\end{itemize}
 
 
 
