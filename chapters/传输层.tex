@@ -110,9 +110,45 @@
     \item 仅支持一对一
 \end{itemize}
 
+\subsubsection{格式}
+首部\begin{itemize}
+    \item 固定首部20B\begin{itemize}
+        \item 源端口
+        \item 目的端口
+        \item 序号seq
+        \item 确认号ack/ack\_seq
+        \item 数据偏移4bit，TCP首部长度，以*4B为单位
+        \item 保留
+        \item \begin{itemize}
+            \item URG
+            \item ACK(1bit)\begin{itemize}
+                \item =0时，ack\_seq无效
+                \item =1时，ack\_seq有效
+            \end{itemize}
+            \item PSH
+            \item RST
+            \item SYN
+            \item FIN
+        \end{itemize}
+        \item 窗口
+        \item 校验和
+        \item 紧急指针
+    \end{itemize}
+    \item 选项（长度可变）
+    \item 填充，凑4B整数倍
+\end{itemize}
 
 
+\subsection{过程}
+\begin{enumerate}
+    \item 建立连接（三次握手），对应3个TCP报文段
+    \item 双向传输TCP段（全双工通信）
+    \item 释放连接（四次挥手）：
+\end{enumerate}
 
+每次TCP可传输多个报文；
+
+TCP是面向字节流的，UDP是面向报文的
 
 
 
