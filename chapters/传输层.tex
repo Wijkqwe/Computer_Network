@@ -24,4 +24,166 @@
 \end{itemize}
 
 
+\section{功能}
+\begin{itemize}
+    \item 实现端到端（进程到进程）的通信
+    \item 复用和分用\begin{itemize}
+        \item 复用（从上到下）：发送数据时，同一主机上多个进程可以使用同一个传输层协议
+        \item 分用（从下到上）：传输层可以把数据正确交付到目的进程
+    \end{itemize}
+    \item 差错检测\begin{itemize}
+        \item TCP：丢弃数据，通知发送方重传
+        \item UDP：丢弃数据，不通知发送方
+    \end{itemize}
+    \item 向应用层提供服务：\begin{itemize}
+        \item \textbf{面向连接的、可靠的}端到端传输服务TCP
+        \item \textbf{无连接的、不可靠的}端到端传输服务UDP
+    \end{itemize}
+\end{itemize}
+
+\subsection{连接}
+\begin{itemize}
+    \item 有连接：确认对方准备好接收数据
+    \item 无连接：
+\end{itemize}
+
+\subsection{可靠}
+\begin{itemize}
+    \item 可靠：接收方使用确认机制，让发送方知道哪些数据被接收
+    \item 不可靠：
+\end{itemize}
+
+
+\section{UDP}
+
+\subsection{数据报}
+\begin{itemize}
+    \item 首部小，仅8B
+    \item 每次传输一个完整报文，\textbf{不支持自动拆分重装}，因此应用层报文长度不能超过UDP上限
+    \item 不支持拥塞控制
+    \item 不可靠，可靠性靠应用层控制
+    \item 支持一对一、一对多
+\end{itemize}
+
+\subsubsection{格式}
+首部8B：|16位源端口号|16位目的端口号|16位UDP长度|16位UDP校验和|
+
+理论最大长度65535B。
+
+
+\subsection{校验}
+32bit数据+16bit校验和
+
+数据以16bit为一组做加法（最高位进位\textbf{回卷}）后取反得到\textbf{校验和}。
+
+以16bit为一组做加法（最高位进位\textbf{回卷}），若无比特错误，则结果一定全1.
+
+计算校验和之前添加伪首部；计算完成后去掉伪首部。
+
+\paragraph{伪首部格式}
+|源IP地址4B|目的IP地址4B|0（1B）|17（1B）|UDP长度2B|
+
+\subsubsection{发送方}
+\begin{enumerate}
+    \item 计算校验和之前添加伪首部；
+    \item 把伪首部、首部、数据部分以16bit为一组做加法（最高位进位\textbf{回卷}）
+    \item 加法结果按位取反，得到16bit校验位，填入UDP首部；
+    \item 去掉伪首部，将UDP数据报交给网络层，封装为IP数据报。
+\end{enumerate}
+
+\subsubsection{接收方}
+\begin{enumerate}
+    \item 网络层向传输层递交UDP数据报
+    \item 添加伪首部
+    \item 把伪首部、首部、数据部分以16bit为一组做加法（最高位进位\textbf{回卷}）
+    \item 若全1，则无错，接收数据报，根据目的端口号向应用层提交报文；若不全1，则有错，丢弃数据报。
+\end{enumerate}
+
+
+\section{TCP}
+
+\subsection{数据报}
+\begin{itemize}
+    \item 首部大，\(20\sim60\)B
+    \item 支持报文自动拆分重装，可以传输长报文
+    \item 支持拥塞控制
+    \item 仅支持一对一
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
