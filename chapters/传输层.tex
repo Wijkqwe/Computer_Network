@@ -215,7 +215,7 @@ TCP是面向字节流的，UDP是面向报文的
 
 \paragraph{快重传和立即确认}
 \begin{itemize}
-    \item 发送方收到多个确认号相同的冗余ACK，则立即重发对应报文段。
+    \item 发送方收到1+3个确认号相同的ACK（第一个不冗余，后三个为\textbf{冗余ACK}），则立即重发对应报文段。
     \item 每收到一个报文就立即确认，即使是失序报文段，也立即返回ACK
 \end{itemize}
 
@@ -223,11 +223,12 @@ TCP是面向字节流的，UDP是面向报文的
 \subsection{流量控制（滑动窗口）}
 
 
+\subsection{拥塞控制}
+
+\subsubsection{慢开始算法}
 
 
-
-
-
+\subsubsection{拥塞避免算法}
 
 
 
