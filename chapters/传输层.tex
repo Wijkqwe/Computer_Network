@@ -213,48 +213,14 @@ TCP是面向字节流的，UDP是面向报文的
     \item 返回的ACK段丢失，重发，服务器收到重复数据，返回重复ACK段
 \end{itemize}
 
-\paragraph{}
+\paragraph{快重传和立即确认}
+\begin{itemize}
+    \item 发送方收到多个确认号相同的冗余ACK，则立即重发对应报文段。
+    \item 每收到一个报文就立即确认，即使是失序报文段，也立即返回ACK
+\end{itemize}
 
 
-\subsection{流量控制}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\subsection{流量控制（滑动窗口）}
 
 
 

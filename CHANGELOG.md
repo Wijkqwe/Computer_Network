@@ -19,6 +19,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 		- 格式
 		- 连接管理
 	- 可靠传输
+		- 确认机制
+		- 重传机制
 
 
 ## 0.1.0 2025-09-24
