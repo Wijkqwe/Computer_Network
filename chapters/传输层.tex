@@ -258,11 +258,21 @@ TCP是面向字节流的，UDP是面向报文的
 \end{itemize}
 
 
-\subsubsection{慢开始算法}
+\subsubsection{慢开始和拥塞避免}
+
+\paragraph{ssthresh}
+慢开始门限/拥塞控制阈值
+
+\begin{itemize}
+    \item cwnd从1开始，每收到一个ACK，cwnd+1（cwnd <= ssthresh时）
+    \item 一个RTT内，即使收到多个ACK，仅cwnd+1（cwnd > ssthresh时）
+\end{itemize}
+
+发生网络拥塞时，cwnd置1，生成新的ssthresh。
 
 
-
-\subsubsection{拥塞避免算法}
+\subsubsection{快重传和快恢复}
+一旦发生快重传，将ssthresh、cwnd设为当前cwnd的一半，然后切换到拥塞避免算法。
 
 
 
