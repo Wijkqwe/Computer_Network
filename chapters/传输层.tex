@@ -115,8 +115,8 @@
     \item 固定首部20B\begin{itemize}
         \item 源端口16bit
         \item 目的端口16bit
-        \item 序号seq，32bit，标记数据部分第一个字节在原始字节流中的位置
-        \item 确认号ack/ack\_seq，32bit，用于反馈，表示序号在该确认号之前的所有字节已正确接收
+        \item \textbf{序号seq}，32bit，标记数据部分第一个字节在原始字节流中的位置，起始序号由进程自己决定
+        \item \textbf{确认号ack/ack\_seq}，32bit，用于反馈，表示序号在该确认号之前的所有字节已正确接收
         \item 数据偏移4bit，TCP首部长度，以*4B为单位，因此首部最长15*4B=60B
         \item 保留6bit，没用，通常全0
         \item \begin{itemize}
@@ -145,23 +145,59 @@
 TCP数据部分长度根据IP首部、TCP首部中的信息算出。
 
 
-\subsection{过程}
+\subsection{连接管理（过程）}
 \begin{enumerate}
-    \item 建立连接（三次握手），对应3个TCP报文段
+    \item 建立连接（三次握手），对应3个TCP报文段\begin{enumerate}
+        \item ACK=0, SYN=1, FIN=0, seq\(_1\)=?\(_1\), ack\(_1\)=无效，不能携带数据
+        \item ACK=1, SYN=1, FIN=0, seq\(_2\)=?\(_2\), ack\(_2\)=seq\(_1\)+1，不能携带数据
+        \item ACK=1, SYN=0, FIN=0, seq\(_3\) = ack\(_2\), ack\(_3\)=seq\(_2\)+1，\begin{itemize}
+            \item 若不携带数据，则不消耗序号
+            \item 若携带nB数据，则消耗n个序号
+        \end{itemize}
+    \end{enumerate}
+    从发出第一次握手，到\(\begin{cases}
+        \text{客户端进程可以发送数据，至少需要 1RTT} \\ 
+        \text{服务器进程可以发送数据，至少需要 1.5RTT}
+    \end{cases}\)
     \item 双向传输TCP段（全双工通信）
-    \item 释放连接（四次挥手）：
+    \item 释放连接（四次挥手）：传输完成后，可2次挥手断开单向连接，\begin{enumerate}
+        \item FIN=1，即使携带数据，也消耗序号
+        \item FIN=0，可以携带数据
+        \item FIN=1，即使携带数据，也消耗序号
+
+        收到第三次挥手后，立即进入TIME-WAIT状态，等待2MSL\footnote{\textbf{最长报文段寿命}，TCP协议规定的一个固定时间长度}后进入CLOSE状态，等待期间重复收到第三次挥手则重置计数器。
+        \item FIN=0，不可以携带数据
+    \end{enumerate}
+    从客户端发出第一次挥手，到\(\begin{cases}
+        \text{客户端进程进入CLOSE状态，至少需要1RTT+2MSL} \\ 
+        \text{服务器进程进入CLOSE状态，至少需要1.5RTT}
+    \end{cases}\)
+    若服务器收到第一次挥手时已没有待发送数据，则可连续发送第二、三次挥手，间隔时间接近于0
 \end{enumerate}
 
 每次TCP可传输多个报文；
 
 TCP是面向字节流的，UDP是面向报文的
 
+\paragraph{握手过程中客户端、服务器进程TCP状态如何变化}
+记忆性考点。
+
+\paragraph{挥手过程中客户端、服务器进程TCP状态如何变化}
+记忆性考点。可以由服务器先挥手。
 
 
+\subsection{可靠传输}
+
+\paragraph{序号}
+进程在建立连接时确定序号，数据传输过程中，每个字节对应一个序号
+
+\subsubsection{确认机制}
 
 
+\subsubsection{重传机制}
 
 
+\subsection{流量控制}
 
 
 
