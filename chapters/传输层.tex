@@ -225,7 +225,41 @@ TCP是面向字节流的，UDP是面向报文的
 
 \subsection{拥塞控制}
 
+\paragraph{与流量控制的区别}
+\begin{itemize}
+    \item 流量控制：控制端到端的数据发送量，是\textbf{局部}的。
+    \item 拥塞控制：控制\textbf{整个网络}中每台主机的数据发送量，降低路由器负载，是\textbf{全局}的。
+\end{itemize}
+
+\paragraph{发送窗口的上限}
+=min(rwnd, cwnd（拥塞窗口）)
+
+\paragraph{判断网络拥塞}
+\begin{itemize}
+    \item 发送的每个报文段，都能顺利收到ACK确认——不拥塞
+    \item 发出的报文段未按时收到ACK，引发\textbf{超时重传}——严重拥塞
+    \item 收到冗余ACK，引发快重传——有点拥塞
+\end{itemize}
+
+\paragraph{网络拥塞对策}
+\begin{itemize}
+    \item 迅速减少发送的数据量
+    \item 严重拥塞——迅速缩小拥塞窗口
+    \item 有点拥塞——适当缩小拥塞窗口
+\end{itemize}
+
+\paragraph{特点}
+\begin{itemize}
+    \item 与流量控制综合考察时，需考虑接收窗口大小
+    \item 通常只涉及单向传输
+    \item 通常默认每个TCP报文段以最大段长MSS满载数据
+    \item 拥塞窗口大小通常以“MSS的倍数”为单位
+    \item 接收方\textbf{立即确认}（导致冗余ACK）
+\end{itemize}
+
+
 \subsubsection{慢开始算法}
+
 
 
 \subsubsection{拥塞避免算法}
