@@ -113,30 +113,36 @@
 \subsubsection{格式}
 首部\begin{itemize}
     \item 固定首部20B\begin{itemize}
-        \item 源端口
-        \item 目的端口
-        \item 序号seq
-        \item 确认号ack/ack\_seq
-        \item 数据偏移4bit，TCP首部长度，以*4B为单位
-        \item 保留
+        \item 源端口16bit
+        \item 目的端口16bit
+        \item 序号seq，32bit，标记数据部分第一个字节在原始字节流中的位置
+        \item 确认号ack/ack\_seq，32bit，用于反馈，表示序号在该确认号之前的所有字节已正确接收
+        \item 数据偏移4bit，TCP首部长度，以*4B为单位，因此首部最长15*4B=60B
+        \item 保留6bit，没用，通常全0
         \item \begin{itemize}
-            \item URG
-            \item ACK(1bit)\begin{itemize}
+            \item URG，=1时紧急指针有效，应插队传输
+            \item \textbf{ACK(1bit)}\footnote{仅第一次握手时ACK=0，其余TCP报文段ACK=1}
+            \begin{itemize}
                 \item =0时，ack\_seq无效
-                \item =1时，ack\_seq有效
+                \item =1时，ack\_seq有效，可称为ACK段
             \end{itemize}
-            \item PSH
-            \item RST
-            \item SYN
-            \item FIN
+            \item PSH，=1时表示希望接收方尽快回复
+            \item RST，=1时表示出现严重差错，需释放连接
+            \item \textbf{SYN}\footnote{仅第一次握手、第二次握手SYN=1，其余全0}，=1时可称为SYN段，表示是连接请求或连接接受报文
+            \item \textbf{FIN}\footnote{仅第一次挥手、第三次挥手FIN=1，其余为0}，=1时可称为FIN段，表示此报文发送方数据发送完毕，要求释放传输连接
         \end{itemize}
-        \item 窗口
-        \item 校验和
+        \item 窗口rwnd/rcvwnd，16bit，表示接收窗口大小，从本报文首部ack\_seq算起，接收方还能接收多少数据；是实现\textbf{流量控制}的关键
+        \item 校验和，原理与UDP类似
         \item 紧急指针
     \end{itemize}
-    \item 选项（长度可变）
+    \item 选项（长度可变）\begin{itemize}
+        \item 建立TCP时，在第一次握手，第二次握手的选项中协商\textbf{MSS（最大段长）}
+        \item MSS表示在接下来的数据传输中，TCP数据部分最多携带多少数据
+        \item 若MSS过大，在IP层会被切片
+    \end{itemize}
     \item 填充，凑4B整数倍
 \end{itemize}
+TCP数据部分长度根据IP首部、TCP首部中的信息算出。
 
 
 \subsection{过程}
