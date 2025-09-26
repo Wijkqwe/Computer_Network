@@ -187,14 +187,33 @@ TCP是面向字节流的，UDP是面向报文的
 
 
 \subsection{可靠传输}
+每个端口可建立多个TCP连接，每个TCP仅支持一对一。
 
 \paragraph{序号}
 进程在建立连接时确定序号，数据传输过程中，每个字节对应一个序号
 
 \subsubsection{确认机制}
 
+\paragraph{接收窗口大小}
+接收缓冲区满后，将数据按序交给应用层，清空缓冲区。
+
+\paragraph{累积确认}
+收到多个连续报文段，只返回最后一个ACK。
+
+\paragraph{捎带确认}
+有数据要发送，则立即返回ACK段，并捎带数据
+
 
 \subsubsection{重传机制}
+
+\paragraph{超时重传}
+每发送一个报文段，设置超时重传计时器。超时后，重传并重置计数器。
+\begin{itemize}
+    \item 发送报文段丢失，仅重发
+    \item 返回的ACK段丢失，重发，服务器收到重复数据，返回重复ACK段
+\end{itemize}
+
+\paragraph{}
 
 
 \subsection{流量控制}
