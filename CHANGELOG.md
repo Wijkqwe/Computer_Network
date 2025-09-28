@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 	- 网络应用模型
 	- DNS
 	- 域名
+		- 服务器
+		- 过程
+	- FTP
 
 
 ## 0.1.0 2025-09-26
