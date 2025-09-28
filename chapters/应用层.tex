@@ -205,7 +205,7 @@ FTP地址：用户名\&密码
 \section{HTTP协议}
 超文本传输协议。
 
-工作方式分为持续、非持续。
+工作方式分为持续、非持续。1.0默认非持续；1.1默认持续。
 \begin{itemize}
     \item HTTP请求报文通常较小，可忽略TCP报文段的传输时延。
     \item HTPP响应报文通常较大，需考虑TCP报文段的传输时延。
@@ -232,14 +232,25 @@ FTP地址：用户名\&密码
 
 \subsection{报文格式}
 
-\paragraph{请求报文}
+\subparagraph{请求报文}
+\begin{itemize}
+    \item Connection\begin{itemize}
+        \item close：非持续
+        \item keep-alive：持续
+    \end{itemize}
+\end{itemize}
 
-\paragraph{响应报文}
+\subparagraph{响应报文}
 
 
 \subsection{Cookie}
 
 \begin{itemize}
-    \item 
+    \item HTTP请求POST
+    \item 生成Cookie，存储在服务器，相当于临时证件
+    \item HTTP响应，携带Cookie
+    \item 浏览器将Cookie缓存到本地
+    \item 后续HTTP请求，携带Cookie
+    \item 通过Cookie识别客户端
 \end{itemize}
 
