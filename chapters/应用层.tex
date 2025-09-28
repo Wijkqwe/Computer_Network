@@ -203,8 +203,43 @@ FTP地址：用户名\&密码
 
 
 \section{HTTP协议}
+超文本传输协议。
+
 工作方式分为持续、非持续。
+\begin{itemize}
+    \item HTTP请求报文通常较小，可忽略TCP报文段的传输时延。
+    \item HTPP响应报文通常较大，需考虑TCP报文段的传输时延。
+\end{itemize}
+
+\subsection{非持续连接}
+可以使用并行TCP连接加快获取html后几个网页元素的速度。
+
+第一次TCP连接返回html后断开连接。浏览器解析后若还要引用其他元素，需分别建立一次TCP连接。
+
+在挥手未完全释放连接时，可迅速建立下一个连接，此时每请求一个文件至少2RTT。
 
 
+\subsection{持续连接}
+分为流水线、非流水线。完成后TCP连接可多保持一段时间，由Web服务器设置持续时间参数。
 
+\subsubsection{流水线}
+浏览器解析后若还要引用其他元素，需分别发送HTTP请求、响应报文。
+
+
+\subsubsection{非流水线}
+浏览器解析后若还要引用其他元素，可连续发送HTTP请求，随后服务器连续响应。
+
+
+\subsection{报文格式}
+
+\paragraph{请求报文}
+
+\paragraph{响应报文}
+
+
+\subsection{Cookie}
+
+\begin{itemize}
+    \item 
+\end{itemize}
 
