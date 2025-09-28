@@ -186,3 +186,25 @@ FTP地址：用户名\&密码
 \subsection{基于万维网的电子邮件}
 用户发送、读取邮件使用http，邮件服务器发送使用SMTP。
 
+
+\section{WWW}
+万维网。
+
+\subsection{浏览器访问网页的过程}
+
+\begin{enumerate}
+    \item 用户输入网址（域名）
+    \item 通过DNS服务器查询域名对应IP地址，浏览器将查询结果“域名->IP”缓存到本地
+    \item 浏览器与<Web服务器IP地址：80端口>建立TCP连接
+    \item 服务器在第三次握手中携带HTTP请求报文，指明访问哪个html网页
+    \item 服务器返回HTTP响应报文，携带html文件
+    \item 若html引用其他n个元素，还需n组http请求\&响应，持续、非持续
+\end{enumerate}
+
+
+\section{HTTP协议}
+工作方式分为持续、非持续。
+
+
+
+

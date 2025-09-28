@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 		- 过程
 	- FTP
 	- Email
+	- 访问网页过程
 
 
 ## 0.1.0 2025-09-26
