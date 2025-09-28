@@ -64,6 +64,38 @@ www（三级域名）.baidu（二级域名）.com（顶级域名）
 
 
 \section{FTP}
-\textbf{文件传输协议}。
+\textbf{文件传送协议}。提供不同种类主机系统之间文件传输能力。
+\begin{itemize}
+    \item 基于C/S。
+    \item 依照FTP，提供服务，进行文件传送的计算机是\textbf{FTP服务器}。
+    \item 连接FTP服务器，依照FTP进行文件传送的计算机是\textbf{FTP客户端}。
+\end{itemize}
+
+\subsection{原理}
+
+使用TCP实现可靠传输。TCP控制连接端口21；TCP数据连接端口20。
+\begin{itemize}
+    \item 控制连接始终保持
+    \item 数据连接间隔保持
+    \item 是否使用TCP20建立数据连接与传输模式相关\begin{itemize}
+        \item 主动方式使用TCP20
+        \item 被动方式由客户端与服务器协商决定（端口>1024）
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{登录}
+FTP地址：用户名\&密码
+
+\paragraph{匿名登录}
+
+
+\subsection{传输模式}
+\begin{enumerate}
+    \item 文本模式：ASCII，以文本序列传输数据
+    \item 二进制模式：Binary，以二进制序列传输数据
+\end{enumerate}
+
+
+\subsection{TFTP简单文件传送协议}
 
 
