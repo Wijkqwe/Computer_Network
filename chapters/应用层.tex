@@ -59,7 +59,7 @@ www（三级域名）.baidu（二级域名）.com（顶级域名）
 
 \begin{itemize}
     \item 递归查询：若主机所询问的本地域名服务器不知道被查询域名的IP地址，那么本地域名服务器以DNS客户的身份，向其他根域名服务器继续发出查询请求报文。这种方法主机用户和本地域名服务器发送的域名请求条数均为1条。
-    \item 迭代查询
+    \item 迭代查询：
 \end{itemize}
 
 
@@ -106,7 +106,7 @@ FTP地址：用户名\&密码
 
 \subsection{组成结构}
 
-基于C/S。
+基于C/S。发送方\(\xrightarrow{\text{STMP}}\)发送方服务器\(\xrightarrow{\text{STMP}}\)接收方服务器\(\xrightarrow{\text{POP3}}\)接收方
 
 \subsubsection{用户代理}
 电子邮件客户端，使用\textbf{SMTP协议}向发送方邮件服务器发送邮件，使用\textbf{TCP连接}。
