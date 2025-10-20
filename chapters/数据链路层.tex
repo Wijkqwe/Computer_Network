@@ -212,7 +212,7 @@ HDLC协议、PPP协议使用。
 \end{itemize}
 
 
-\section{介质访问控制MAC}
+\section{MAC介质访问控制}
 
 以太网的MAC协议提供的是\textbf{无连接不可靠服务}。
 
@@ -279,6 +279,9 @@ HDLC协议、PPP协议使用。
 
 \subsection{CSMA协议}
 载波监听多路访问协议。发送数据前，先监听信道是否空闲，若空闲，则尝试发送。
+
+\textbf{会}发生冲突。
+
 \begin{itemize}
     \item 1-坚持CSMA协议：坚持表示若信道不空闲则坚持监听\begin{itemize}
         \item 优点：信道利用率高，一旦空闲就被下一信道使用；
