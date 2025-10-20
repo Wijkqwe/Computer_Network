@@ -35,64 +35,15 @@
 发现并解决一个帧内部的“位错”。
 
 
-\subsubsection{检错编码}
-接收方\textbf{发现比特错}后丢弃帧，通知发送方重传帧。
-
-\paragraph{奇偶校验码}
-整个校验码（有效信息位+校验位）中1的个数。
-\begin{itemize}
-    \item 奇校验码：1的个数为奇数；
-    \item 偶校验码：1的个数为偶数；
-\end{itemize}
-\subparagraph{偶校验硬件实现}
-各信息位进行\textbf{异或}运算，结果为偶校验位。将偶校验的信息位、校验位异或，结果为0则没有错误。
-
-仅能检测处奇数位错误，无纠错能力。
+\paragraph{检错编码}
+见\ref{检错编码}。
 
 
-\paragraph{CRC码（循环冗余校验）}
-发送接收方约定一个“除数”，K信息位、R校验位作为“被除数”，添加校验位后保证除法余数为0。
-
-\subparagraph{构造}
-设生成多项式\(G(x)\)，R位数为\(G(x)\)最高次幂，二进制码为多项式系数。信息位左移R位，对二进制码进行模2除法，得到余数即除数，除数有R + 1位。
-
-\subparagraph{纠错}
-\begin{itemize}
-    \item 可检测所有奇数个错误
-    \item 可检测所有双比特错误
-    \item 可检测所有小于等于校验位长度的连续错误
-    \item 若选择合适多项式，且\(2^R >= K + R + 1\)，则可纠正单比特错
-\end{itemize}
-
-
-\subsubsection{纠错编码}
-
-\paragraph{海明校验码}
-信息位分组进行偶校验->多个校验位->标注出错位置
-\subparagraph{位数}
-n位信息位，k位校验位，则\(2^k >= n + k + 1\)。校验位\(P_i\)放到海明位\(2^{i - 1}\)上，信息位按顺序放到其余位置。
-\subparagraph{海明位}
-\(H_{n + k} ...H_2 H_1\)
-\subparagraph{校验位}
-\(P_k...P_2P_1\)。以7位海明码为例，\(P_1 = H_3 \oplus H_5 \oplus H_7 = D_1 \oplus D_2 \oplus D_4\)（3低位1，5低位1，6低位0，7低位1）
-\subparagraph{格式转换}
-海明位\(H_1H_2...H_{n + k}\)，校验位\(P_1P_2...P_1\)
-\subparagraph{纠错}
-\(S_1 = P_1 \oplus D_1 \oplus D_2 \oplus D_4\)，0则无错
-\subparagraph{纠错能力}
-1位
-\subparagraph{检错能力}
-2位
-\subparagraph{全校验位}
-\(P_{\text{全}} = S_k...S_1\)\begin{itemize}
-    \item 为0且偶校验成功\(\Rightarrow\)无错
-    \item 不为0且偶校验失败\(\Rightarrow\)1位错，纠正即可
-    \item 不为0且偶校验成功\(\Rightarrow\)2位错，需重传
-\end{itemize}
+\paragraph{纠错编码}
+见\ref{纠错编码}。
 
 
 \subsection{可靠传输}
-
 
 
 \subsection{流量控制}
@@ -134,6 +85,63 @@ HDLC协议、PPP协议使用。
 需要物理层配合。
 
 若周期中间不跳变，则违规。
+
+
+\section{检错编码}\label{检错编码}
+接收方\textbf{发现比特错}后丢弃帧，通知发送方重传帧。
+
+\subsection{奇偶校验码}
+整个校验码（有效信息位+校验位）中1的个数。
+\begin{itemize}
+    \item 奇校验码：1的个数为奇数；
+    \item 偶校验码：1的个数为偶数；
+\end{itemize}
+\subparagraph{偶校验硬件实现}
+各信息位进行\textbf{异或}运算，结果为偶校验位。将偶校验的信息位、校验位异或，结果为0则没有错误。
+
+仅能检测处奇数位错误，无纠错能力。
+
+
+\subsection{CRC码（循环冗余校验）}
+发送接收方约定一个“除数”，K信息位、R校验位作为“被除数”，添加校验位后保证除法余数为0。
+
+\subparagraph{构造}
+设生成多项式\(G(x)\)，R位数为\(G(x)\)最高次幂，二进制码为多项式系数。信息位左移R位，对二进制码进行模2除法，得到余数即除数，除数有R + 1位。
+
+\subparagraph{纠错}
+\begin{itemize}
+    \item 可检测所有奇数个错误
+    \item 可检测所有双比特错误
+    \item 可检测所有小于等于校验位长度的连续错误
+    \item 若选择合适多项式，且\(2^R >= K + R + 1\)，则可纠正单比特错
+\end{itemize}
+
+
+\section{纠错编码}\label{纠错编码}
+
+\subsection{海明校验码}
+信息位分组进行偶校验->多个校验位->标注出错位置
+\subparagraph{位数}
+n位信息位，k位校验位，则\(2^k >= n + k + 1\)。校验位\(P_i\)放到海明位\(2^{i - 1}\)上，信息位按顺序放到其余位置。
+\subparagraph{海明位}
+\(H_{n + k} ...H_2 H_1\)
+\subparagraph{校验位}
+\(P_k...P_2P_1\)。以7位海明码为例，\(P_1 = H_3 \oplus H_5 \oplus H_7 = D_1 \oplus D_2 \oplus D_4\)（3低位1，5低位1，6低位0，7低位1）
+\subparagraph{格式转换}
+海明位\(H_1H_2...H_{n + k}\)，校验位\(P_1P_2...P_1\)
+\subparagraph{纠错}
+\(S_1 = P_1 \oplus D_1 \oplus D_2 \oplus D_4\)，0则无错
+\subparagraph{纠错能力}
+1位
+\subparagraph{检错能力}
+2位
+
+\subparagraph{全校验位}
+\(P_{\text{全}} = S_k...S_1\)\begin{itemize}
+    \item 为0且偶校验成功\(\Rightarrow\)无错
+    \item 不为0且偶校验失败\(\Rightarrow\)1位错，纠正即可
+    \item 不为0且偶校验成功\(\Rightarrow\)2位错，需重传
+\end{itemize}
 
 
 \section{三种协议}
