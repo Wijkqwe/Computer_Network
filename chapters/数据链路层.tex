@@ -177,6 +177,7 @@ n位信息位，k位校验位，则\(2^k >= n + k + 1\)。校验位\(P_i\)放到
     \item 重传机制：超时重传；若未收到ACK\_i，重传i及之后所有帧
     \item 帧编号：至少需nbit给帧编号，需要\(W_T + W_R <= 2^n\)；
 \end{itemize}
+需要按序接收。
 
 \subsubsection{异常情况}
 \begin{itemize}
@@ -199,6 +200,7 @@ n位信息位，k位校验位，则\(2^k >= n + k + 1\)。校验位\(P_i\)放到
     \end{itemize}
     \item 帧编号：至少需nbit给帧编号，需要\(W_T + W_R <= 2^n\)且\(W_R <= W_T\)；
 \end{itemize}
+可以不按序接收。
 
 \subsubsection{异常情况}
 \begin{itemize}
@@ -216,8 +218,8 @@ n位信息位，k位校验位，则\(2^k >= n + k + 1\)。校验位\(P_i\)放到
     \end{itemize}
 \end{itemize}
 
-\subsubsection{信道利用率}
-\(T_D\)数据传输时延，\(RTT\)两倍的单向传输时延，\(T_A\)确认帧传输时延，发送窗口大小\(N\)。
+\subsection{信道利用率}
+\(T_D\)\textbf{数据}\textit{传输时延}，\(RTT\)\textbf{两倍}的\textit{单向传输时延}，\(T_A\)\textbf{确认帧}\textit{传输时延}，发送窗口大小\(N\)。
 \begin{itemize}
     \item S-W：理想情况下\footnote{没有帧丢失、比特错误等异常情况}\(U = \dfrac{T_D}{T_D + RTT + T_A}\)，若\(T_A\)极短，则通常可忽略不计。
     \item GBN、SR：\(U = \dfrac{NT_D}{T_D + RTT + T_A}\)；当\(NT_D >= T_D + RTT + T_A\)，则U为1（不能大于1）；常结合考察帧编号\footnote{\(W_T + W_R <= 2^n\)}。
