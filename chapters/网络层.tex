@@ -282,6 +282,7 @@ CIDR地址块中，子网号长度不固定，每个子网含IP地址块大小�
 
 
 \subsubsection{NAT路由器}
+工作在\textbf{传输层}，因为可以“看到”端口。
 
 \paragraph{作用}
 转发IP数据报时，进行内网IP、外网IP的相互转换。
@@ -298,6 +299,7 @@ CIDR地址块中，子网号长度不固定，每个子网含IP地址块大小�
 
 
 \section{ARP地址解析协议}
+工作在\textbf{网络层}，因为可以“看到”IP地址。
 
 \subsection{IP与MAC}
 \begin{itemize}
@@ -481,7 +483,7 @@ OSPF协议使用。
 BGP协议使用。考纲未明确要求。
 
 
-\section{路由协议}
+\section{路由协议}\label{路由协议}
 
 \subsection{RIP}
 基于距离向量路由算法，网络数越多，距离向量越大。
@@ -672,5 +674,12 @@ OSPF中PDU常称为\textbf{OSPF分组}或\textbf{OSPF数据报}。定义了5中�
 \section{网络层设备}
 
 \subsection{路由器}
+网络层设备，实现并处理网络层及以下的功能。
 
+\textbf{路由表}
+分组转发部分包括\begin{itemize}
+    \item 交换结构
+    \item 输入端口
+    \item 输出端口
+\end{itemize}
 
