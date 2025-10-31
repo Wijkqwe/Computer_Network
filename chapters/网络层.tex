@@ -314,9 +314,9 @@ CIDR地址块中，子网号长度不固定，每个子网含IP地址块大小�
 \begin{itemize}
     \item 完成IP地址到MAC地址的映射；
     \item 查询同一网络中<IP地址，MAC地址>之间映射关系；
+    \item 构造\textit{以太网帧}时，确定\textit{目的MAC地址}；
     \item 每台主机设有\textbf{ARP高速缓存}，用来存放\textbf{ARP表}；
 \end{itemize}
-
 
 
 \subsection{ARP表（ARP缓存）}
@@ -328,7 +328,7 @@ CIDR地址块中，子网号长度不固定，每个子网含IP地址块大小�
 \end{itemize}
 
 
-\subsection{过程}
+\subsection{类型}
 \begin{enumerate}
     \item ARP请求分组\begin{itemize}
         \item 内容：谁？（IP地址X，MAC地址Y）找谁？（目的IP地址Z）
@@ -337,6 +337,16 @@ CIDR地址块中，子网号长度不固定，每个子网含IP地址块大小�
     \item ARP响应分组\begin{itemize}
         \item 内容：IP地址Z，MAC地址V
         \item ARP响应分组封装进\textbf{MAC帧}（帧目的地址Y，源地址V）-\textbf{单播帧}
+    \end{itemize}
+\end{enumerate}
+
+
+\subsection{工作过程}
+\begin{enumerate}
+    \item 在ARP表中查找目的IP地址；
+    \item \begin{itemize}
+        \item 若ARP表中\textbf{存在}：查出\textit{硬件地址}，写入MAC帧，通过局域网发往该\textit{硬件地址}；
+        \item 若ARP表中\textbf{不存在}：使用目的MAC地址全1（FF-FF-FF-FF-FF-FF）的帧来封装并广播\textit{ARP请求分组}，目的主机收到该请求后发送\textit{ARP响应分组}，收到后将此映射写入ARP表。
     \end{itemize}
 \end{enumerate}
 
