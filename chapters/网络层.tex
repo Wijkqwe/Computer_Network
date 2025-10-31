@@ -151,6 +151,8 @@ IGMP协议用于实现IP组播。
 
 若一台路由器支持子网划分技术，则转发表中，应包含<目的网络号，子网掩码，转发接口>
 
+路由表中，若\textit{目的地址}为某一特定主机，则\textit{子网掩码}为\(255.255.255.255\)
+
 
 \subsection{默认子网掩码}
 若一个传统网络（A/B/C类）内没有进行子网划分，则将对应此网络的\textbf{转发表项}设为默认子网掩码。
@@ -159,7 +161,7 @@ IGMP协议用于实现IP组播。
 \subsection{默认路由}
 默认路由（默认转发表项）设置：<目的网络号全0，子网掩码全0>
 
-在路由转发表中，若所有表项都不匹配，则转发默认路由。
+在路由转发表中，若所有表项都不匹配（如\textit{互联网}），则转发默认路由。
 
 
 \subsection{主机发送IP数据报的过程}
@@ -295,21 +297,38 @@ CIDR地址块中，子网号长度不固定，每个子网含IP地址块大小�
 \end{cases}\)
 
 
-\subsection{ARP地址解析协议}
+\section{ARP地址解析协议}
 
-\paragraph{作用}
-查询同一网络中<IP地址，MAC地址>之间映射关系。
+\subsection{IP与MAC}
+\begin{itemize}
+    \item 在IP层抽象的互联网上，只能看见\textit{IP数据报}；
+    \item 虽然\textit{IP数据报}首部含\textit{源IP地址}，但路由器仅根据\textit{目的IP地址}进行转发；
+    \item 局域网的链路层只能看见\textit{MAC帧}；
+    \item \textit{IP数据报}封装在\textit{MAC帧}中；通过路由器转发时，\textit{IP数据报}在每个网络中都被路由器\textbf{解封}和\textbf{重新封装}，其\textit{MAC帧}首部中的源地址和目的地址会不断改变；
+    \item 无法使用\textit{MAC地址}跨网络通信；
+    \item 路由器不仅有多个\textit{IP地址}，还有多个\textit{硬件地址}；
+\end{itemize}
 
 
-\paragraph{ARP表（ARP缓存）}
+\subsection{功能作用}
+\begin{itemize}
+    \item 完成IP地址到MAC地址的映射；
+    \item 查询同一网络中<IP地址，MAC地址>之间映射关系；
+    \item 每台主机设有\textbf{ARP高速缓存}，用来存放\textbf{ARP表}；
+\end{itemize}
+
+
+
+\subsection{ARP表（ARP缓存）}
 \begin{itemize}
     \item 记录<IP地址，MAC地址>
-    \item 需定期更新ARP表项
+    \item 需定期更新ARP表项，ARP动态维护ARP表；
+    \item 每个表项设置生存时间，超时则删除；
     \item 每台主机、路由器有自己的ARP表
 \end{itemize}
 
-\subsubsection{过程}
 
+\subsection{过程}
 \begin{enumerate}
     \item ARP请求分组\begin{itemize}
         \item 内容：谁？（IP地址X，MAC地址Y）找谁？（目的IP地址Z）
@@ -317,7 +336,7 @@ CIDR地址块中，子网号长度不固定，每个子网含IP地址块大小�
     \end{itemize}
     \item ARP响应分组\begin{itemize}
         \item 内容：IP地址Z，MAC地址V
-        \item ARP响应分组封装进MAC帧（帧目的地址Y，源地址V）-\textbf{单播帧}
+        \item ARP响应分组封装进\textbf{MAC帧}（帧目的地址Y，源地址V）-\textbf{单播帧}
     \end{itemize}
 \end{enumerate}
 
@@ -325,7 +344,7 @@ CIDR地址块中，子网号长度不固定，每个子网含IP地址块大小�
 \section{ICMP网际控制报文协议}
 属于网络层，ICMP报文封装在IP数据报中。
 
-让主机或路由器相互报告网络中差错和异常情况。
+让主机或路由器相互报告网络中\textbf{差错和异常情况}。
 
 \subsection{差错报告报文}
 \begin{itemize}
