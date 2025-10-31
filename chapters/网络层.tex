@@ -159,9 +159,7 @@ IGMP协议用于实现IP组播。
 
 
 \subsection{默认路由}
-默认路由（默认转发表项）设置：<目的网络号全0，子网掩码全0>
-
-在路由转发表中，若所有表项都不匹配（如\textit{互联网}），则转发默认路由。
+\ref{默认路由}。
 
 
 \subsection{主机发送IP数据报的过程}
@@ -682,4 +680,16 @@ OSPF中PDU常称为\textbf{OSPF分组}或\textbf{OSPF数据报}。定义了5中�
     \item 输入端口
     \item 输出端口
 \end{itemize}
+
+路由选择部分包括\begin{itemize}
+    \item 路由选择处理机
+    \item 路由选择协议
+    \item 路由表
+\end{itemize}
+
+\subsection{默认路由}\label{默认路由}
+默认路由（默认转发表项）设置：<目的网络号全0，子网掩码全0>
+
+在路由转发表中，若所有表项都不匹配（如\textit{互联网}），则转发默认路由。
+
 
